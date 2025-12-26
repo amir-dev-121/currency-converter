@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Currency Converter | Web Wave Studio</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Currency Converter powered by Web Wave Studio">
+
+  <link rel="icon" href="logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="page-center">
+    <div class="app">
+
+      <!-- LOGO -->
+      <div class="logo-center">
+        <img src="logo.png" alt="Web Wave Studio Logo">
+      </div>
+
+      <!-- TITLE -->
+      <div class="title-center">
+        <h1>Currency Converter</h1>
+        <p class="powered">Powered by Web Wave Studio</p>
+      </div>
+
+      <!-- CARD -->
+      <div class="card">
+
+        <input type="number" id="amount" placeholder="Enter amount">
+
+        <div class="row">
+          <select id="from"></select>
+          <button class="swap" onclick="swapCurrencies()">⇄</button>
+          <select id="to"></select>
+        </div>
+
+        <button class="convert" onclick="convert()">Convert</button>
+
+        <h3 id="result"></h3>
+        <small id="updated"></small>
+
+        <!-- MODE SWITCH -->
+        <div class="mode-row">
+          <span class="mode-label">MODE</span>
+
+          <label class="switch">
+            <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+            <span class="slider"></span>
+          </label>
+
+          <span class="mode-text">Dark</span>
+        </div>
+
+        <!-- HISTORY -->
+        <div class="history-header">
+          <span>History</span>
+          <button class="clear" onclick="clearHistory()">Clear</button>
+        </div>
+
+        <ul id="history"></ul>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
