@@ -4,20 +4,11 @@ const historyList = document.getElementById("history");
 const updatedText = document.getElementById("updated");
 const themeToggle = document.getElementById("themeToggle");
 
-const ONE_DAY = 24 * 60 * 60 * 1000;
 let rates = {};
-let names = {};
 
-/* Load currency names */
-fetch("https://open.er-api.com/v6/codes")
-  .then(res => res.json())
-  .then(data => {
-    data.supported_codes.forEach(([code, name]) => {
-      names[code] = name;
-    });
-  });
-
-/* Load rates */
+/* ===============================
+   LOAD CURRENCY RATES
+================================ */
 fetch("https://open.er-api.com/v6/latest/USD")
   .then(res => res.json())
   .then(data => {
@@ -28,45 +19,62 @@ fetch("https://open.er-api.com/v6/latest/USD")
       new Date(data.time_last_update_utc).toLocaleString();
 
     Object.keys(rates).forEach(code => {
-      const title = names[code] ? `${code} – ${names[code]}` : code;
-      from.innerHTML += `<option value="${code}" title="${title}">${code}</option>`;
-      to.innerHTML += `<option value="${code}" title="${title}">${code}</option>`;
+      from.innerHTML += `<option value="${code}">${code}</option>`;
+      to.innerHTML += `<option value="${code}">${code}</option>`;
     });
 
     from.value = "USD";
     to.value = "PKR";
   });
 
+/* ===============================
+   CONVERT
+================================ */
 function convert() {
   const amount = document.getElementById("amount").value;
-  if (!amount) return;
+  if (!amount || !rates[from.value] || !rates[to.value]) return;
 
   const result = ((amount / rates[from.value]) * rates[to.value]).toFixed(2);
+
   document.getElementById("result").innerText =
     `${amount} ${from.value} = ${result} ${to.value}`;
 
   saveHistory(amount, from.value, to.value, result);
 }
 
+/* ===============================
+   SWAP
+================================ */
 function swapCurrencies() {
   [from.value, to.value] = [to.value, from.value];
 }
 
-/* HISTORY */
-function saveHistory(a, f, t, r) {
-  let h = JSON.parse(localStorage.getItem("history")) || [];
-  h.unshift({ text: `${a} ${f} → ${r} ${t}`, time: Date.now() });
-  h = h.slice(0, 5);
-  localStorage.setItem("history", JSON.stringify(h));
+/* ===============================
+   HISTORY (FIXED)
+================================ */
+function saveHistory(amount, fromC, toC, result) {
+  let history = JSON.parse(localStorage.getItem("history")) || [];
+
+  history.unshift({
+    text: `${amount} ${fromC} → ${result} ${toC}`
+  });
+
+  history = history.slice(0, 5); // keep max 5
+
+  localStorage.setItem("history", JSON.stringify(history));
   loadHistory();
 }
 
 function loadHistory() {
   historyList.innerHTML = "";
-  let h = JSON.parse(localStorage.getItem("history")) || [];
-  h = h.filter(i => Date.now() - i.time < ONE_DAY);
-  localStorage.setItem("history", JSON.stringify(h));
-  h.forEach(i => historyList.innerHTML += `<li>${i.text}</li>`);
+
+  const history = JSON.parse(localStorage.getItem("history")) || [];
+
+  history.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item.text;
+    historyList.appendChild(li);
+  });
 }
 
 function clearHistory() {
@@ -74,7 +82,9 @@ function clearHistory() {
   historyList.innerHTML = "";
 }
 
-/* DARK MODE */
+/* ===============================
+   DARK MODE
+================================ */
 function toggleTheme() {
   document.body.classList.toggle("dark");
   localStorage.setItem(
