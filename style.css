@@ -6,22 +6,16 @@
   --secondary: #ffb200;
 }
 
+/* DARK MODE BASE */
 body.dark {
   --bg: #0f172a;
   --text: #ffffff;
 }
 
-/* CENTER PAGE */
-.page-center {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
+/* GLOBAL RESET */
 * {
   box-sizing: border-box;
-  font-family: Brixton, system-ui, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
@@ -31,7 +25,15 @@ body {
   color: var(--text);
 }
 
-/* OUTER BOX */
+/* PAGE CENTER */
+.page-center {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* OUTER APP BOX */
 .app {
   width: 100%;
   max-width: 480px;
@@ -39,14 +41,18 @@ body {
   padding: 26px;
   border-radius: 16px;
   border: 2px solid var(--primary);
-  box-shadow: 0 12px 30px rgba(0,0,0,.15);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.15);
+}
+
+/* DARK MODE SHADOW REFINEMENT */
+body.dark .app {
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
 }
 
 /* LOGO */
 .logo-center {
   display: flex;
   justify-content: center;
-  margin-bottom: 6px;
 }
 
 .logo-center img {
@@ -62,7 +68,6 @@ body {
 .title-center h1 {
   margin: 0;
   color: var(--primary);
-  font-family: Kagitingan, system-ui;
 }
 
 .powered {
@@ -78,17 +83,19 @@ body.dark .powered {
 /* CARD */
 .card {
   background: var(--card);
-  color: #000;
   padding: 22px;
   border-radius: 14px;
+  color: #000;
 }
 
 /* INPUTS */
-input, select {
+input,
+select {
   width: 100%;
   height: 44px;
-  margin-bottom: 10px;
   padding: 8px;
+  margin-bottom: 10px;
+  font-size: 15px;
 }
 
 /* ROW */
@@ -107,7 +114,7 @@ input, select {
 .convert {
   width: 100%;
   background: var(--primary);
-  color: white;
+  color: #fff;
   border: none;
   padding: 12px;
   border-radius: 10px;
@@ -120,27 +127,43 @@ input, select {
   font-weight: bold;
 }
 
+/* TIMESTAMP */
 #updated {
   font-size: 12px;
-  color: gray;
+  color: #666;
 }
 
-/* MODE SWITCH */
+body.dark #updated {
+  color: var(--secondary);
+}
+
+/* MODE TOGGLE */
 .mode-row {
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
-  margin: 10px 0 14px;
+  gap: 12px;
+  margin: 18px 0;
 }
 
-.mode-label,
 .mode-text {
   font-size: 12px;
   font-weight: bold;
+  color: var(--primary);
+  opacity: 0.4;
+  transition: opacity 0.2s ease;
 }
 
-/* TOGGLE */
+/* ACTIVE SIDE HIGHLIGHT */
+body:not(.dark) .mode-text:first-child {
+  opacity: 1; /* Light active */
+}
+
+body.dark .mode-text:last-child {
+  opacity: 1; /* Dark active */
+}
+
+/* TOGGLE SWITCH */
 .switch {
   position: relative;
   width: 40px;
@@ -156,7 +179,6 @@ input, select {
   inset: 0;
   background: #ccc;
   border-radius: 20px;
-  cursor: pointer;
 }
 
 .slider::before {
@@ -164,7 +186,7 @@ input, select {
   position: absolute;
   width: 14px;
   height: 14px;
-  background: white;
+  background: #fff;
   border-radius: 50%;
   top: 3px;
   left: 3px;
@@ -183,8 +205,11 @@ input:checked + .slider::before {
 .history-header {
   display: flex;
   justify-content: space-between;
-  margin-top: 6px;
   font-weight: bold;
+}
+
+.history-header span {
+  color: var(--primary);
 }
 
 .clear {
@@ -197,3 +222,31 @@ input:checked + .slider::before {
 ul {
   padding-left: 16px;
 }
+
+/* 📱 MOBILE TYPOGRAPHY OPTIMIZATION */
+@media (max-width: 480px) {
+  .app {
+    padding: 20px;
+  }
+
+  .title-center h1 {
+    font-size: 22px;
+  }
+
+  input,
+  select {
+    font-size: 14px;
+  }
+
+  .convert {
+    font-size: 15px;
+  }
+}
+
+.seo-text {
+  font-size: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+
