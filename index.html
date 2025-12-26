@@ -1,71 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Currency Converter | Web Wave Studio</title>
+  <meta charset="UTF-8" />
 
+  <!-- ================= PRIMARY SEO ================= -->
+  <title>Currency Converter | Live Exchange Rates by Country – Web Wave Studio</title>
+  <meta name="description" content="Free online currency converter with live exchange rates. Convert currencies worldwide including USD to PKR, PKR to USD, GBP, EUR, NGN and more. Powered by Web Wave Studio.">
+  <meta name="keywords" content="currency converter, online currency converter, live currency converter, USD to PKR, PKR to USD, currency exchange rates, world currency converter, free currency converter tool, real time exchange rates">
+  <meta name="author" content="Web Wave Studio">
+  <meta name="robots" content="index, follow">
+
+  <!-- ================= VIEWPORT ================= -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Currency Converter powered by Web Wave Studio">
 
+  <!-- ================= OPEN GRAPH ================= -->
+  <meta property="og:title" content="Currency Converter – Live Exchange Rates Worldwide">
+  <meta property="og:description" content="Convert global currencies instantly using live exchange rates. Free currency converter by Web Wave Studio.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://amir-dev-121.github.io/currency-converter/">
+  <meta property="og:image" content="logo.png">
+  <meta property="og:site_name" content="Web Wave Studio">
+
+  <!-- ================= TWITTER ================= -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Currency Converter – Live Exchange Rates">
+  <meta name="twitter:description" content="Free online currency converter with real-time exchange rates.">
+
+  <!-- ================= FAVICON ================= -->
   <link rel="icon" href="logo.png">
+
+  <!-- ================= CSS ================= -->
   <link rel="stylesheet" href="style.css">
+
+  <!-- ================= SCHEMA: WEB APP ================= -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Currency Converter",
+    "url": "https://amir-dev-121.github.io/currency-converter/",
+    "description": "A free online currency converter providing real-time exchange rates for global currencies.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "author": {
+      "@type": "Organization",
+      "name": "Web Wave Studio"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <!-- ================= FAQ SCHEMA ================= -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is this currency converter free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, this currency converter is completely free and provides live exchange rates."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are the exchange rates updated in real time?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, rates are updated regularly to reflect current global market values."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I convert USD to PKR?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, you can convert USD to PKR and many other global currencies."
+        }
+      }
+    ]
+  }
+  </script>
+
 </head>
 <body>
 
-  <div class="page-center">
-    <div class="app">
+<div class="page-center">
+  <div class="app">
 
-      <!-- LOGO -->
-      <div class="logo-center">
-        <img src="logo.png" alt="Web Wave Studio Logo">
+    <!-- LOGO -->
+    <div class="logo-center">
+      <img src="logo.png" alt="Web Wave Studio Currency Converter Logo">
+    </div>
+
+    <!-- TITLE -->
+    <div class="title-center">
+      <h1>Currency Converter</h1>
+      <p class="powered">Powered by Web Wave Studio</p>
+    </div>
+
+    <!-- CARD -->
+    <div class="card">
+
+      <input type="number" id="amount" placeholder="Enter amount">
+
+      <div class="row">
+        <select id="from"></select>
+        <button class="swap" onclick="swapCurrencies()">⇄</button>
+        <select id="to"></select>
       </div>
 
-      <!-- TITLE -->
-      <div class="title-center">
-        <h1>Currency Converter</h1>
-        <p class="powered">Powered by Web Wave Studio</p>
+      <button class="convert" onclick="convert()">Convert</button>
+
+      <h3 id="result"></h3>
+      <small id="updated"></small>
+
+      <!-- ✅ UPDATED MODE TOGGLE (CENTER, LIGHT ↔ DARK) -->
+      <div class="mode-row">
+        <span class="mode-text">Light</span>
+
+        <label class="switch">
+          <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+          <span class="slider"></span>
+        </label>
+
+        <span class="mode-text">Dark</span>
       </div>
 
-      <!-- CARD -->
-      <div class="card">
-
-        <input type="number" id="amount" placeholder="Enter amount">
-
-        <div class="row">
-          <select id="from"></select>
-          <button class="swap" onclick="swapCurrencies()">⇄</button>
-          <select id="to"></select>
-        </div>
-
-        <button class="convert" onclick="convert()">Convert</button>
-
-        <h3 id="result"></h3>
-        <small id="updated"></small>
-
-        <!-- MODE SWITCH -->
-        <div class="mode-row">
-          <span class="mode-label">MODE</span>
-
-          <label class="switch">
-            <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
-            <span class="slider"></span>
-          </label>
-
-          <span class="mode-text">Dark</span>
-        </div>
-
-        <!-- HISTORY -->
-        <div class="history-header">
-          <span>History</span>
-          <button class="clear" onclick="clearHistory()">Clear</button>
-        </div>
-
-        <ul id="history"></ul>
-
+      <!-- HISTORY -->
+      <div class="history-header">
+        <span>History</span>
+        <button class="clear" onclick="clearHistory()">Clear</button>
       </div>
+
+      <ul id="history"></ul>
+
+      <!-- SEO SUPPORT TEXT -->
+      <p class="seo-text">
+        Free currency converter with live exchange rates for USD, PKR, EUR, GBP and more global currencies.
+      </p>
+
     </div>
   </div>
+</div>
 
-  <script src="script.js"></script>
+<script src="script.js?v=5"></script>
 </body>
 </html>
